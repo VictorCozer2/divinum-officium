@@ -15,7 +15,8 @@ COPY . .
 # Make CGI scripts executable
 RUN chmod -R 755 ./web/cgi-bin
 
-# Configure Apache to use the repo's cgi-bin
+# Configure Apache to use the repo's web root and cgi-bin
+RUN sed -i 's|/var/www/html|/usr/src/app/web|g' /etc/apache2/sites-enabled/000-default.conf
 RUN echo 'ScriptAlias /cgi-bin/ /usr/src/app/web/cgi-bin/' >> /etc/apache2/sites-enabled/000-default.conf \
  && echo '<Directory "/usr/src/app/web/cgi-bin">\nOptions +ExecCGI\nAddHandler cgi-script .pl\nRequire all granted\n</Directory>' >> /etc/apache2/sites-enabled/000-default.conf
 
