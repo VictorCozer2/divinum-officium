@@ -17,7 +17,7 @@ RUN chmod -R 755 ./web/cgi-bin
 
 # Configure Apache to use the repo's cgi-bin
 RUN echo 'ScriptAlias /cgi-bin/ /usr/src/app/web/cgi-bin/' >> /etc/apache2/sites-enabled/000-default.conf \
- && echo '<Directory "/usr/src/app/web/cgi-bin">\nOptions +ExecCGI\nAddHandler cgi-script .pl\n</Directory>' >> /etc/apache2/sites-enabled/000-default.conf
+ && echo '<Directory "/usr/src/app/web/cgi-bin">\nOptions +ExecCGI\nAddHandler cgi-script .pl\nRequire all granted\n</Directory>' >> /etc/apache2/sites-enabled/000-default.conf
 
 EXPOSE 80
 
